@@ -6,7 +6,7 @@ describe('Ability Model', () => {
   });
 
   describe('Parte UNO', () => {
-    xit('should not create the Ability if name is not send', async () => {
+    it('should not create the Ability if name is not send', async () => {
       expect.assertions(1);
       try {
         await Ability.create({mana_cost: 150.0});
@@ -15,7 +15,7 @@ describe('Ability Model', () => {
       }
     });
   
-    xit('should not create the Ability if mana_cost is not send', async () => {
+    it('should not create the Ability if mana_cost is not send', async () => {
       expect.assertions(1);
       try {
         await Ability.create({name: 'Fire Ball'});
@@ -24,7 +24,7 @@ describe('Ability Model', () => {
       }
     });
   
-    xit('should create the Ability if all required properties are ok', async () => {
+    it('should create the Ability if all required properties are ok', async () => {
       const ability = await Ability.create({
         name: 'Franco',
         mana_cost: 150.0
@@ -34,7 +34,7 @@ describe('Ability Model', () => {
       expect(ability.toJSON()).toHaveProperty('description',null);
     });
   
-    xit('should not create two Abilities with the same name-mana combination', async () => {
+    it('should not create two Abilities with the same name-mana combination', async () => {
       expect.assertions(5);
       try {
         const abilityOne = await Ability.create({name: 'Fire Ball', mana_cost: 150.0});
