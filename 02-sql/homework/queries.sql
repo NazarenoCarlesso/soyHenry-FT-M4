@@ -55,9 +55,46 @@ WHERE genre='Film-Noir' AND year%4=0
 ORDER BY movies.name ASC;
 
 /* 9. ° Bacon */
+SELECT * FROM directors WHERE first_name='Kevin' AND last_name='Bacon';
+
+SELECT actors.first_name, actors.last_name, movies.name
+FROM actors
+JOIN roles ON actors.id = roles.actor_id
+JOIN movies ON movies.id = roles.movie_id
+JOIN movies_directors
+ON movies.id = movies_directors.movie_id
+JOIN directors
+ON directors.id = movies_directors.director_id
+JOIN movies_genres
+ON movies_genres.movie_id = movies.id
+WHERE directors.first_name='Kevin' AND directors.last_name='Bacon'
+AND movies_genres.genre='Drama';
 
 /* 10. Immortal Actors */
+SELECT actors.first_name, actors.last_name,
+COUNT(CASE WHEN movies.year<'1900' THEN 1 ELSE NULL END) AS old,
+COUNT(CASE WHEN movies.year>'2000' THEN 1 ELSE NULL END) AS new
+FROM actors
+JOIN roles ON actors.id = roles.actor_id
+JOIN movies ON movies.id = roles.movie_id
+GROUP BY actors.id
+HAVING old>=1 AND new>=1;
 
 /* 11. Busy Filming */
 
 /* 12. ♀ */
+SELECT movies.name, COUNT(CASE WHEN actors.gender='M' THEN 1 ELSE NULL END) AS M
+FROM movies
+JOIN roles ON movies.id = roles.movie_id
+JOIN actors ON actors.id = roles.actor_id
+GROUP BY movies.id
+HAVING M=0;
+
+SELECT year, COUNT(*) FROM movies
+WHERE id IN (SELECT movies.id
+FROM movies
+JOIN roles ON movies.id = roles.movie_id
+JOIN actors ON actors.id = roles.actor_id
+GROUP BY movies.id
+HAVING COUNT(CASE WHEN actors.gender='M' THEN 1 ELSE NULL END)=0)
+GROUP BY year;
