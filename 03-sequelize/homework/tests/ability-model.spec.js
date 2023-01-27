@@ -51,7 +51,7 @@ describe('Ability Model', () => {
   })
 
   describe('Parte DOS', () => {
-    xit('should retrieve the summary although it is not saved in the database', async () => {
+    it('should retrieve the summary although it is not saved in the database', async () => {
       const ability = await Ability.create({
         name: 'Thunderbolt',
         description: 'An incredibly powerful thunderbolt', 
@@ -61,7 +61,7 @@ describe('Ability Model', () => {
       expect(results[0]).not.toHaveProperty('summary');
     });
   
-    xit('should not create the Ability if mana_cost is lower than the min value', async () => {
+    it('should not create the Ability if mana_cost is lower than the min value', async () => {
       expect.assertions(1);
       try {
         await Ability.create({name: 'Weak power', mana_cost: 5.0});
@@ -70,7 +70,7 @@ describe('Ability Model', () => {
       }
     });
   
-    xit('should not create the Ability if mana_cost is higher than the max value', async () => {
+    it('should not create the Ability if mana_cost is higher than the max value', async () => {
       expect.assertions(1);
       try {
         await Ability.create({name: 'Op power', mana_cost: 505.0});

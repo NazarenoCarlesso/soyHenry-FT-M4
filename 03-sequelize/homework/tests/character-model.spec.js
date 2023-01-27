@@ -111,7 +111,7 @@ describe('Character Model', () => {
   })
 
   describe('Parte DOS', () => {
-    xit('should not create the Character if name is forbidden', async () => {
+    it('should not create the Character if name is forbidden', async () => {
       expect.assertions(1);
       try {
         await Character.create({
@@ -125,7 +125,7 @@ describe('Character Model', () => {
       }
     });
   
-    xit('should not create the Character if code is forbidden', async () => {
+    it('should not create the Character if code is forbidden', async () => {
       expect.assertions(1);
       try {
         await Character.create({
@@ -139,7 +139,7 @@ describe('Character Model', () => {
       }
     });
   
-    xit('should not create the Character if code is forbidden', async () => {
+    it('should not create the Character if code is forbidden', async () => {
       expect.assertions(1);
       try {
         await Character.create({

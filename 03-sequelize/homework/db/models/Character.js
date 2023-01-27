@@ -5,15 +5,27 @@ module.exports = sequelize => {
     code: {
       type: DataTypes.STRING(5),
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isHenry(value) {
+          if(value.toLowerCase() === 'henry') throw new Error('Henry is not allowed.')
+        }
+      }
     },
     name: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notIn: [['Henry', 'SoyHenry', 'Soy Henry']]
+      }
     },
     age: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      get() {
+        const rawValue = this.getDataValue('age');
+        return rawValue ? rawValue + ' years old' : null
+      }
     },
     race: {
       type: DataTypes.ENUM('Human', 'Elf', 'Machine', 'Demon', 'Animal', 'Other'),
@@ -32,7 +44,7 @@ module.exports = sequelize => {
       defaultValue: DataTypes.NOW
     }
   },
-  {
-    timestamps: false
-  })
+    {
+      timestamps: false
+    })
 }
